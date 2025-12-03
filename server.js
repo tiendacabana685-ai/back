@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["https://localhost:3000"],
+    origin: ["https://tiendacabana685-ai.github.io"],
     credentials: true,
   })
 );

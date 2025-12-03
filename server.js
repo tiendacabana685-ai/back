@@ -11,7 +11,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["https://tiendacabana685-ai.github.io"],
+    "https://tiendacabana685-ai.github.io", 
+    "https://tiendacabana685-ai.github.io/tiendafront",
     credentials: true,
   })
 );

@@ -14,7 +14,7 @@ app.use(
   cors({
     origin: [
       "https://tiendacabana685-ai.github.io",
-      "https://tiendacabana685-ai.github.io/tiendafront"
+      "https://tiendacabana685-ai.github.io/front"
     ],
     credentials: true,
   })

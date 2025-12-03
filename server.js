@@ -2,23 +2,29 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import Stripe from "stripe";
-import fs from "fs";
-import https from "https";
 
 dotenv.config();
 
 const app = express();
 
+// ===========================
+// CORS CONFIG
+// ===========================
 app.use(
   cors({
-    "https://tiendacabana685-ai.github.io", 
-    "https://tiendacabana685-ai.github.io/tiendafront",
+    origin: [
+      "https://tiendacabana685-ai.github.io",
+      "https://tiendacabana685-ai.github.io/tiendafront"
+    ],
     credentials: true,
   })
 );
 
 app.use(express.json());
 
+// ===========================
+// STRIPE INIT
+// ===========================
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // ===========================
@@ -63,23 +69,15 @@ app.post("/api/pagos/crear", async (req, res) => {
 });
 
 // ===========================
-// HTTPS SERVER
+// HTTP SERVER (Render)
 // ===========================
-try {
-  const httpsOptions = {
-    key: fs.readFileSync("./localhost-key.pem"),
-    cert: fs.readFileSync("./localhost.pem"),
-  };
+const PORT = process.env.PORT || 3000;
 
-  https.createServer(httpsOptions, app).listen(process.env.PORT, () => {
-    console.log("====================================");
-    console.log("🚀 BACKEND INICIADO");
-    console.log(`✔ HTTPS: https://localhost:${process.env.PORT}`);
-    console.log(`✔ Config: https://localhost:${process.env.PORT}/config`);
-    console.log(`✔ Pagos: https://localhost:${process.env.PORT}/api/pagos/crear`);
-    console.log("====================================");
-  });
-} catch (err) {
-  console.error("❌ ERROR SSL:", err.message);
-  console.log("Coloca los archivos localhost.pem y localhost-key.pem en backend/");
-}
+app.listen(PORT, () => {
+  console.log("====================================");
+  console.log("🚀 BACKEND INICIADO");
+  console.log(`✔ HTTP: http://localhost:${PORT}`);
+  console.log(`✔ Config: http://localhost:${PORT}/config`);
+  console.log(`✔ Pagos: http://localhost:${PORT}/api/pagos/crear`);
+  console.log("====================================");
+});
